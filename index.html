@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Etch Sketch</title>
+        <script src="./code.js"></script>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="body">
+
+        </div>
+        <button class="grid_size">NEW GRID</button>
+
+    <script>
+        const gridsize = 512;
+
+        let body = document.querySelector(".body");
+        body.style.display = "flex";
+        body.style.justifyContent ='center';
+
+        
+        resizeGrid(16);
+        addListeners();
+
+        function addListeners() {
+            const boxes = document.querySelectorAll(".box")
+            boxes.forEach(box => box.addEventListener("mousedown", () => {
+                box.classList.add("hoveringover")
+            }))
+
+            boxes.forEach(box => box.addEventListener("transitionend", () => {
+                box.classList.remove("hoveringover")
+            }))
+
+            const btn = document.querySelector(".grid_size");
+            btn.addEventListener('click', promptNewGrid);
+        }
+        
+        function promptNewGrid() {
+            let value = 0;
+            do {
+                value = parseInt(prompt("Please choose a new grid size (MAX at 100):"));
+                if (isNaN(value) || value > 100) {
+                    alert("Unaccepted input, try again.")
+                }
+                console.log(value);
+            } while (isNaN(value) || value > 100)
+
+            const columns = document.querySelectorAll('.column');
+            columns.forEach(column => body.removeChild(column));
+
+            resizeGrid(value);
+        }
+
+        function resizeGrid(value) {
+            
+            for (let i = 0; i < value; i++) {
+                let column = document.createElement('div');
+                column.classList.add("column");
+
+                for (let i = 0; i < value; i++) {
+                    let boxSize = gridsize / value;
+                    let box = document.createElement('div');
+                    box.style.border = ".1px solid black";
+                    box.style.minWidth = `${boxSize}px`;
+                    box.style.minHeight = `${boxSize}px`;
+                    box.classList.add("box");
+                    column.appendChild(box);
+                }
+
+                body.appendChild(column);
+            }
+
+            addListeners();
+        }
+    </script>
+    </body>
+</html>
