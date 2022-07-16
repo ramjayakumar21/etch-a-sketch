@@ -1,8 +1,80 @@
+.header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+
+.options {
+    margin: 20px;
+    padding: 30px;
+    display: flex; 
+    background-color: rgb(131, 215, 236); 
+    max-width: 50vw;
+    justify-content: center;
+    gap: 60px;
+    border-radius: 5px;
+}
+
+
+:root {
+    background-color: #ededed;
+    --fill-color: rgb(160, 43, 43);
+}
 
 .box {
     background-color: white;
 }
 
 .hoveringover {
-    background-color: black;
+    background-color: var(--fill-color);
+}
+
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+
+/* CSS COPIED FROM https://getcssscan.com/css-buttons-examples*/
+
+.button-27 {
+  appearance: none;
+  background-color: #000000;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+  will-change: transform;
+}
+
+.button-27:disabled {
+  pointer-events: none;
+}
+
+.button-27:hover {
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-27:active {
+  box-shadow: none;
+  transform: translateY(0);
 }
