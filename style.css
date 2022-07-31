@@ -19,19 +19,16 @@
 
 :root {
     background-color: #ededed;
-    --fill-color: rgb(160, 43, 43);
+    --fill-color: #000000;
 }
 
 .box {
     background-color: white;
 }
 
-.hoveringover {
-    background-color: var(--fill-color);
-}
 
 * {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: sans-serif
 }
 
 

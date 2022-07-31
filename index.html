@@ -16,7 +16,9 @@
             <div class="options">
                 <button class="grid_size button-27">NEW GRID</button>
                 <button class="clear_grid button-27">CLEAR GRID</button>
-                <button class="rand_color button-27">RANDOM COLOR</button>
+                <button class="rand_color button-27">RANDOM COLORING</button>
+                <button class="opac_color button-27">OPACITY COLORING</button>
+                <input class='color-pick' type="color" value="#000000">
             </div>
             </div>
         </div>
@@ -29,10 +31,11 @@
         grid.style.display = "flex";
         grid.style.justifyContent ='center';
 
-        let r = document.querySelector(':root');
+        let r = document.documentElement;
 
-        resizeGrid(numOfSquare);
-        addListeners();
+
+        
+
 
         const gridBtn = document.querySelector(".grid_size");
         gridBtn.addEventListener('click', promptNewGrid);
@@ -40,37 +43,53 @@
         const clearBtn = document.querySelector(".clear_grid");
         clearBtn.addEventListener('click', () => {
             removeGrid();
-            resizeGrid(numOfSquare);
+            createGrid(numOfSquare);
         })
 
         const randColorBtn = document.querySelector(".rand_color");
         randColorBtn.addEventListener('click', () => {
-            removeGrid();
-            resizeGrid(numOfSquare);
             const boxes = document.querySelectorAll(".box")
             boxes.forEach(box => box.addEventListener("mouseover", () => {
                     if (isMouseDown == true) {
                         let randomColor = '#'+Math.floor(Math.random()*16777215).toString(16);
-                        r.style.setProperty("--fill-color", randomColor);
-                        box.classList.add("hoveringover");
+                        box.style.backgroundColor = randomColor;
                     }
             }))
         })
 
+        const opacColorBtn = document.querySelector('.opac_color');
+        // opacColorBtn.addEventListener('click', () => {
+        //     const boxes = document.querySelectorAll(".box")
+        //     boxes.forEach(box => box.addEventListener("mouseover", () => {
+        //             if (isMouseDown == true) {
+        //                 box.style.backgroundColor = box.style.;
+        //                  = randomColor;
+        //             }
+        //     }))
+        // })
+
+        const colorPickerBtn = document.querySelector('.color-pick');
+        colorPickerBtn.addEventListener('change', (event) => {
+            r.style.setProperty('--fill-color', event.target.value);
+            removeListeners();
+            addListeners();
+        })
+
 
         function addListeners() {
+            let color = (r.style.getPropertyValue('--fill-color') == "") ? '#000000' : r.style.getPropertyValue('--fill-color');
             const boxes = document.querySelectorAll(".box")
             boxes.forEach(box => box.addEventListener("mouseover", () => {
                 if (isMouseDown == true) {
-                box.classList.add("hoveringover")
+                    box.style.backgroundColor = color;
                 }
             }))
-
-            boxes.forEach(box => box.addEventListener("transitionend", () => {
-                box.classList.remove("hoveringover")
-            }))
-
             
+        }
+
+        function removeListeners() {
+            const boxes = document.querySelectorAll(".box")
+            boxes.forEach(box => box.replaceWith(box.cloneNode(true))); // replaces each box with clone of itself
         }
         
         function promptNewGrid() {
@@ -84,7 +103,7 @@
             } while (isNaN(value) || value > 100)
 
             removeGrid();
-            resizeGrid(value);
+            createGrid(value);
         }
 
         function removeGrid() {
@@ -94,7 +113,7 @@
             });
         }
 
-        function resizeGrid(value) {
+        function createGrid(value) {
             numOfSquare = value;
             
             for (let i = 0; i < value; i++) {
@@ -102,9 +121,9 @@
                 column.classList.add("column");
 
                 for (let i = 0; i < value; i++) {
-                    let boxSize = (gridsize / value) - 2;
+                    let boxSize = (gridsize / value);
                     let box = document.createElement('div');
-                    box.style.border = "1px dashed black";
+                    box.style.border = "0px dashed black";
                     box.style.minWidth = `${boxSize}px`;
                     box.style.minHeight = `${boxSize}px`;
                     box.classList.add("box");
@@ -116,6 +135,9 @@
 
             addListeners();
         }
+
+        createGrid(numOfSquare);
+        addListeners();
     </script>
     </body>
 </html>
